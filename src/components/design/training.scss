@@ -1,0 +1,40 @@
+#display{
+  border: 2px solid gray;
+
+  #quoteOne{
+    position: absolute;
+    left: 5em;
+    top: 8em;
+    z-index: 5;
+  }
+
+  #quoteTwo{
+    position: absolute;
+    right: 5em;
+    top: 8em;
+    z-index: 5;
+  }
+
+  h2{
+    text-align: center;
+  }
+
+  #word{
+    text-align: center;
+    font-size: 5em;
+  }
+
+  #buttons{
+    text-align: center;
+
+    button{
+      display: inline-block;
+      text-align: center;
+      padding: 1em;
+      margin: 2em;
+      background-color: lightsalmon;
+      box-shadow: 2px 2px gray;
+      width: 8em;
+    }
+  }
+}

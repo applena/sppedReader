@@ -1,6 +1,7 @@
 import React from 'react';
 import Training from './Training';
 import When from './When';
+import './design/form.scss';
 
 class Form extends React.Component{
   constructor(props){
@@ -20,8 +21,13 @@ class Form extends React.Component{
     this.setState({ displayTraining: true });
 
     let textInput = e.target.words.value;
-    let speedInput = Number(e.target.speed.value);
-    
+
+    this.setState({ textArr: textInput.split(' ')});
+  }
+
+  updateSpeed = (e) => {
+    let speedInput = Number(e.target.value);
+
     switch(speedInput) {
       case 1:
         speedInput = 10;
@@ -56,31 +62,33 @@ class Form extends React.Component{
       default:
         speedInput = 5;
     }
-
-    this.setState({ textArr: textInput.split(' ')});
+    console.log('the speed is', this.state.speed);
     this.setState({ speed: speedInput });
   }
 
   render(){
     return(
       <>
-        <When condition={this.state.displayForm}>
-          <form onSubmit={this.handleSubmit}>
-            <label>Enter Text</label>
-            <input type="text" name="words"></input>
-            <p>Reading Speed:</p>
-
-            <div>
-              <input type="range" id="start" name="speed" min="1" max="10"></input>
-            </div>
-
-            <button type="submit">Submit</button>
-          </form>
-        </When>
-      
         <When condition={this.state.displayTraining}>
           <Training textArr={this.state.textArr} speed={this.state.speed} />
         </When>
+        <form onSubmit={this.handleSubmit}>
+
+        <When condition={this.state.displayForm}>
+          <label>Enter Text</label>
+          <textarea type="text" name="words"></textarea>
+        </When>
+
+          <div id="speed">
+            <label>Reading Speed:</label>
+            <input onChange={this.updateSpeed} type="range" id="start" name="speed" min="1" max="10"></input>
+          </div>
+
+          <When condition={this.state.displayForm}>
+            <button type="submit">Submit</button>
+          </When>
+        </form>
+      
         
       </>
     )

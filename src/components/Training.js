@@ -1,5 +1,6 @@
 import React from 'react';
 import When from './When';
+import './design/training.scss';
 
 class Training extends React.Component{
   constructor(props) {
@@ -26,11 +27,15 @@ class Training extends React.Component{
     if(this.state.active){
       this.setState({ i: this.state.i + 1 });
 
-      if(this.props.textArr[this.state.i] && this.props.textArr[this.state.i][0] === '"'){
+      if(this.props.textArr[this.state.i].includes('"') && this.state.showQuote === false){
+        console.log('in the turn on quote')
         this.setState({ showQuote: true });
+      } else if(this.props.textArr[this.state.i].includes('"') && this.state.showQuote === true){
+        console.log('in the turn off quote')
+        this.setState({ showQuote: false });
       }
 
-      if(this.props.textArr[this.state.i] && this.props.textArr[this.state.i][this.props.textArr[this.state.i].length-1] === '"'){
+      if(this.props.textArr[this.state.i][this.props.textArr[this.state.i].length - 1] === '"'){
         this.setState({ showQuote: false });
       }
 
@@ -45,15 +50,17 @@ class Training extends React.Component{
   render(){
     let word = this.props.textArr[this.state.i];
     return(
-      <>
+      <section id="display">
         <When condition={this.state.showQuote}>
-          <h2>""</h2>
+          <h2 id="quoteOne">"</h2>
+          <h2 id="quoteTwo">"</h2>
         </When>
-        <h1> { word } </h1>
-        <p>I'm the Training</p>
-        <button onClick={this.beginReader}>Go</button>
-        <button onClick={this.pauseReader}>Pause</button>
-      </>
+        <h2 id="word"> { word } </h2>
+        <div id="buttons">
+          <button onClick={this.beginReader}>Go</button>
+          <button onClick={this.pauseReader}>Pause</button>
+        </div>
+      </section>
     )
   }
 }
