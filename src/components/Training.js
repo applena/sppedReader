@@ -13,10 +13,11 @@ class Training extends React.Component{
   }
   
   beginReader = () => {
-    console.log('in begin reader with text arr', this.props.textArr)
-    this.setState({ active: true }, () => {
-      this.runTimer();
-    });
+    if(!this.state.active){
+      this.setState({ active: true }, () => {
+        this.runTimer();
+      });
+    }
   }
 
   pauseReader = () => {
@@ -46,6 +47,10 @@ class Training extends React.Component{
       }
     }
   }
+
+  previoudWord = () => {
+    this.setState({ i: this.state.i - 1});
+  }
   
   render(){
     let word = this.props.textArr[this.state.i];
@@ -57,6 +62,7 @@ class Training extends React.Component{
         </When>
         <h2 id="word"> { word } </h2>
         <div id="buttons">
+          <button onClick={this.previoudWord}>Go Back</button>
           <button onClick={this.beginReader}>Go</button>
           <button onClick={this.pauseReader}>Pause</button>
         </div>

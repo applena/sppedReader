@@ -66,6 +66,12 @@ class Form extends React.Component{
     this.setState({ speed: speedInput });
   }
 
+  uploadFile = (e) => {
+    e.preventDefault();
+    console.log('in the upload File', e.target.fileUpload.value);
+
+  }
+
   render(){
     return(
       <>
