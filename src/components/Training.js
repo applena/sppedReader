@@ -29,12 +29,12 @@ class Training extends React.Component{
 
   pauseReader = () => {
     this.setState({ active: false })
+
+    // save to local storage
     let stringI = JSON.stringify(this.state.i);
     let stringBook = JSON.stringify(this.props.textArr);
     localStorage.setItem('index', stringI);
     localStorage.setItem('book', stringBook);
-
-    console.log('??????????????', stringI);
   }
   
   runTimer() {
