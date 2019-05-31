@@ -45,7 +45,7 @@ class Training extends React.Component{
     if(this.state.active){
       this.setState({ i: this.state.i + 1 });
 
-      if(nextWord[0] === '"' && this.state.showQuote === false){
+      if(nextWord[0] === '"'){
         this.setState({ showQuote: true });
         console.log('turning quotes on')
       } else if(lastCharacter === '"' && this.state.showQuote === true){
@@ -68,7 +68,7 @@ class Training extends React.Component{
   
   render(){
     let word = this.props.textArr[this.state.i];
-    
+
     return(
       <section id="display">
         <When condition={this.state.showQuote}>
