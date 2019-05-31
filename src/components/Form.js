@@ -22,7 +22,7 @@ class Form extends React.Component{
 
     let textInput = e.target.words.value;
 
-    this.setState({ textArr: textInput.split(' ')});
+    this.setState({ textArr: textInput.split(/\s+/)});
   }
 
   updateSpeed = (e) => {

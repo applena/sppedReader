@@ -25,22 +25,28 @@ class Training extends React.Component{
   }
   
   runTimer() {
+    let word = this.props.textArr[this.state.i];
+    let lastCharacter = word[this.props.textArr[this.state.i].length - 1];
+    let previousWord = this.props.textArr[this.state.i-1];
+    let nextWord = this.props.textArr[this.state.i+1];
+
     if(this.state.active){
       this.setState({ i: this.state.i + 1 });
 
-      if(this.props.textArr[this.state.i].includes('"') && this.state.showQuote === false){
-        console.log('in the turn on quote')
+      if(nextWord[0] === '"' && this.state.showQuote === false){
         this.setState({ showQuote: true });
-      } else if(this.props.textArr[this.state.i].includes('"') && this.state.showQuote === true){
-        console.log('in the turn off quote')
+        console.log('turning quotes on')
+      } else if(lastCharacter === '"' && this.state.showQuote === true){
         this.setState({ showQuote: false });
+        console.log('turning quotes off');
       }
 
-      if(this.props.textArr[this.state.i][this.props.textArr[this.state.i].length - 1] === '"'){
-        this.setState({ showQuote: false });
-      }
+      // if(previousWord && previousWord[previousWord.length - 1] === '"' && this.state.showQuote === true){
+      //   this.setState({ showQuote: false });
+      //   console.log('turning quotes off from the important one');
+      // }
 
-      if(this.props.textArr[this.state.i] && this.props.textArr[this.state.i].length < 8){
+      if(word && word.length < 8){
         setTimeout(this.runTimer.bind(this), this.props.speed*50);
       } else {
         setTimeout(this.runTimer.bind(this), this.props.speed*50+200);
@@ -49,6 +55,7 @@ class Training extends React.Component{
   }
 
   previoudWord = () => {
+    this.pauseReader();
     this.setState({ i: this.state.i - 1});
   }
   
@@ -60,11 +67,15 @@ class Training extends React.Component{
           <h2 id="quoteOne">"</h2>
           <h2 id="quoteTwo">"</h2>
         </When>
-        <h2 id="word"> { word } </h2>
+        <h2 id="word"> { word.replace(/"/g,'') } </h2>
         <div id="buttons">
           <button onClick={this.previoudWord}>Go Back</button>
-          <button onClick={this.beginReader}>Go</button>
-          <button onClick={this.pauseReader}>Pause</button>
+          <When condition={this.state.active === false}>
+            <button onClick={this.beginReader}>Go</button>
+          </When>
+          <When condition={this.state.active}>
+            <button onClick={this.pauseReader}>Pause</button>
+          </When>
         </div>
       </section>
     )
