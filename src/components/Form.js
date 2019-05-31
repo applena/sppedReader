@@ -21,8 +21,10 @@ class Form extends React.Component{
     this.setState({ displayTraining: true });
 
     let textInput = e.target.words.value;
+    let textArray = textInput.split(/\s+/);
+    textArray.unshift("SPEED READER");
 
-    this.setState({ textArr: textInput.split(/\s+/)});
+    this.setState({ textArr: textArray});
   }
 
   updateSpeed = (e) => {
@@ -66,10 +68,14 @@ class Form extends React.Component{
     this.setState({ speed: speedInput });
   }
 
-  uploadFile = (e) => {
-    e.preventDefault();
-    console.log('in the upload File', e.target.fileUpload.value);
+  componentDidMount(){
+    if(localStorage.book){
+      let book = JSON.parse(localStorage.getItem('book'));
+      this.setState({ textArr: book });
 
+      this.setState({ displayForm: false });
+      this.setState({ displayTraining: true });
+    }
   }
 
   render(){

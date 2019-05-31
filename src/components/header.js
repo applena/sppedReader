@@ -7,7 +7,7 @@ class Header extends React.Component{
     return(
       <header>
         <h1> Speed Reader </h1>
-        <h3> Read Faster Better </h3>
+        <h3> Read Faster </h3>
       </header>
     )
   }
